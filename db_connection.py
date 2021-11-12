@@ -1,36 +1,42 @@
-from sqlalchemy import create_engine, Integer, JSON, Column, Sequence
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine, select
+from sqlalchemy.exc import SQLAlchemyError
 
-EntityBase = declarative_base()
+DB_PATH = 'sqlite:///db/location.db'
+TABLE_NAME = 'location'
 
-
-class Item(EntityBase):
-    __tablename__ = "items"
-    id = Column(Integer, Sequence("item_id_seq"), primary_key=True, nullable=False)
-    information = Column(JSON, nullable=True)
+engine = create_engine(DB_PATH, echo=True)
 
 
-# Setup a database connection. Using in-memory database here.
-engine = create_engine("sqlite://", echo=True)
+def add_location(imei, latitude, longitude):
+    """
+    :param imei: Unique smartphone identifier.
+    :param latitude: Only send data in decimal degrees. ex: 12.33321
+    :param longitude: Only send data  in decimal degrees ex: -23.3334
+    :return:  should prompt in console:
+                No of records added  :  1
+                Id of last record added :  1
+    """
+    q = 'INSERT INTO {} VALUES(\'{}\', \'{}\', \'{}\')'.format(TABLE_NAME, imei, latitude, longitude)
+    try:
+        r_set = engine.execute(q)
+    except SQLAlchemyError as e:
+        error = str(e.__dict__['orig'])
+        print(error)
+    else:
+        print("No of records added  : ", r_set.rowcount)
+        print("Id of last record added : ", r_set.lastrowid)
 
-Session = sessionmaker(bind=engine)
-session = Session()
 
-# Create all tables derived from the EntityBase object
-EntityBase.metadata.create_all(engine)
+def get_location(imei):
+    """
 
-# Declare a new row
-first_item = Item()
-first_item.information = dict(a=1, b="foo", c=[1, 1, 2, 3, 5, 8, 13])
+    :param imei: The unique identifier of the smartphone
+    :return: Return the latitude and longitude (decimal) in a tuple
+    """
+    stmt = 'SELECT * FROM location WHERE location.imei = \'{}\''.format(imei)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            return row
 
-# Insert it into the database
-session.add(first_item)
-session.commit()
 
-# Get all saved items from the database
-for item in session.query(Item).all():
-    print(type(item.information))
-    # <class 'dict'>
-    print(item.id, item.information)
-    # 1 {'a': 1, 'b': 'foo', 'c': [1, 1, 2, 3, 5, 8, 13]}
+get_location('111111111111')
