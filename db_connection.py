@@ -3,6 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 DB_PATH = 'sqlite:///db/location.db'
 TABLE_NAME = 'location'
+# TODO Seguridad a la base de datos
 
 engine = create_engine(DB_PATH, echo=True)
 

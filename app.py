@@ -6,6 +6,7 @@ import datetime
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = '5000'
 DEBUG = True
+
 app = Flask(__name__)
 
 
@@ -38,8 +39,14 @@ def post():
         return '{"message:"added"}'
 
 
+# TODO Guardar rutas
+# TODO Crear clases para los recursos.
+# TODO Meterle seguridad
+# TODO Base de datos decente
+
 if __name__ == '__main__':
     print('\nBienvenido al servidor de *******\n')
     print('---------------------------------\n')
     print('Hoy es {}\n'.format(datetime.datetime.now()))
     app.run(debug=DEBUG, host=SERVER_HOST, port=SERVER_PORT)
+
