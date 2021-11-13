@@ -19,7 +19,11 @@ El JSON tiene el siguiente formato:
 * Python >= 3.10
 * Flask >= 2.0.2
 * SQLAlchemy >= 1.4.27
-* venv
+
+Así que para instalar las dependencias hacemos:
+````shell
+pip install Flask SQLAlchemy
+````
 
 El IDE usado en el desarrollo es PyCharm 2021.1
 
