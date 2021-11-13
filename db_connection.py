@@ -21,10 +21,9 @@ def add_location(imei, latitude, longitude):
         r_set = engine.execute(q)
     except SQLAlchemyError as e:
         error = str(e.__dict__['orig'])
-        print(error)
+        print('ERROR {}, IMEI = {}'.format(error, imei))
     else:
-        print("No of records added  : ", r_set.rowcount)
-        print("Id of last record added : ", r_set.lastrowid)
+        print('Actualizada la ubicación de {}\n'.format(imei))
 
 
 def get_location(imei):
@@ -37,6 +36,3 @@ def get_location(imei):
     with engine.connect() as conn:
         for row in conn.execute(stmt):
             return row
-
-
-get_location('111111111111')
