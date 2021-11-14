@@ -1,5 +1,7 @@
-# Backend para obtener los datos (beta)
+# Backend para TransMap (alpha release)
+## Referencia de la API
 
+* [Ir a la documentación de la API Rest](doc/reference.md)
 ## Descripción
 
 El servidor está diseñado para recibir y almacenar datos enviados en forma de JSON por una aplicación de Android que se
