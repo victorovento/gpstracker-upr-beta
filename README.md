@@ -14,18 +14,19 @@ El JSON tiene el siguiente formato:
   "longitude": "xx.xxxxx" // Longitud geográfica del dispositivo en formato decimal
 }
 ````
-## Requisitos
+## Instalación
 
-* Python >= 3.10
-* Flask >= 2.0.2
-* SQLAlchemy >= 1.4.27
+* Clonar este repositorio
 
-Así que para instalar las dependencias hacemos:
 ````shell
-pip install Flask SQLAlchemy
+git clone https://github.com/victorovento/gpstracker-upr-beta.git
+````
+* Instalar las dependencias
+````shell
+pip install -r requirements.txt
 ````
 
-El IDE usado en el desarrollo es PyCharm 2021.1
+Recomiendo usar virtualenv:  --> https://docs.python.org/3/library/venv.html
 
 ## Instrucciones
 
@@ -60,4 +61,9 @@ SERVER_HOST = '127.0.0.1' # IP del servidor
 SERVER_PORT = '5000' # Puerto del servidor
 DEBUG = False # Trastear tanto es malo
 ````
+
+# Próximamente
+* Compatibilidad con rutas GPS
+* Agrupar los endpoints de la API en resources
+* ... etc
 ### Documentación en construcción...
